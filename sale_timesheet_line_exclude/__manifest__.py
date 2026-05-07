@@ -12,7 +12,7 @@
     "installable": True,
     "application": False,
     "summary": "Exclude Timesheet Line from Sale Order",
-    "depends": ["sale_timesheet"],
+    "depends": ["hr_timesheet", "sale_timesheet"],
     "data": [
         "security/exclude_from_sale_order.xml",
         "views/account_analytic_line.xml",
