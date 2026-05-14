@@ -14,11 +14,17 @@ class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
     task_id = fields.Many2one(
-        domain="project_id and [('company_id', 'in', (company_id, False)), "
-        "('project_id.allow_timesheets', '=', True), "
+        "project.task",
+        "Task",
+        index="btree_not_null",
+        compute="_compute_task_id",
+        store=True,
+        readonly=False,
+        domain="project_id and [('allow_timesheets', '=', True), "
+        "('has_template_ancestor', '=', False), "
         "('state', 'not in', " + str(list(CLOSED_STATES.keys())) + "), "
         "('project_id', '=', project_id)] "
-        "or [('company_id', 'in', (company_id, False)), "
-        "('project_id.allow_timesheets', '=', True), "
+        "or [('allow_timesheets', '=', True), "
+        "('has_template_ancestor', '=', False), "
         "('project_id', '=?', project_id)]",
     )
